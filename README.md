@@ -25,6 +25,43 @@ Test on Linux, macOS, Windows.
 
 ## Installation / Getting started
 
+### Windows
+
+First install ![MSYS2](https://www.msys2.org/).
+
+Then open MSYS2 MINGW32 (or MSYS2 MINGW64 if your want to build for x64).
+
+Install all required dependencies and build tools
+
+```shell
+# for x86
+pacman -S mingw-w64-i686-toolchain 
+pacman -S --needed base-devel msys2-devel
+pacman -S git mingw-w64-i686-cython0 mingw-w64-i686-libzip
+pacman -S make automake autoconf libtool pkgconf openssl openssl-devel
+```
+
+Then clone the actual project repository:
+```shell
+git clone https://github.com/libimobiledevice/libimobiledevice-glue.git
+cd libimobiledevice-glue
+```
+
+Now you can build and install it:
+```shell
+./autogen.sh
+make
+sudo make install
+```
+
+If you require a custom prefix or other option being passed to `./configure`
+you can pass them directly to `./autogen.sh` like this:
+```bash
+./autogen.sh --prefix=/opt/local
+make
+sudo make install
+```
+
 ### Debian / Ubuntu Linux
 
 First install all required dependencies and build tools:
