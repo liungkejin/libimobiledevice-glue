@@ -25,6 +25,10 @@ Test on Linux, macOS, Windows.
 
 ## Installation / Getting started
 
+Project dependcies:
+
+* libplist
+
 ### Windows
 
 First install ![MSYS2](https://www.msys2.org/).
@@ -43,7 +47,7 @@ pacman -S make automake autoconf libtool pkgconf openssl openssl-devel
 
 Then clone the actual project repository:
 ```shell
-git clone https://github.com/libimobiledevice/libimobiledevice-glue.git
+git clone https://github.com/liungkejin/libimobiledevice-glue.git
 cd libimobiledevice-glue
 ```
 
@@ -51,7 +55,7 @@ Now you can build and install it:
 ```shell
 ./autogen.sh
 make
-sudo make install
+make install
 ```
 
 If you require a custom prefix or other option being passed to `./configure`
@@ -59,7 +63,28 @@ you can pass them directly to `./autogen.sh` like this:
 ```bash
 ./autogen.sh --prefix=/opt/local
 make
-sudo make install
+make install
+```
+
+You can find the dll file in `%MSYS2 INSTALL PATH%\mingw32\bin`
+If you want use this dll in Visual Studio C++ Project, you need use `pexports.exe`
+to generate .lib file
+
+```shell
+pexports.exe -v libxxx.dll > libxxx.def
+```
+
+Then open `x86 Native Tools Command Prompt` or `x64 Native Tools Command Prompt`
+
+run
+```shell
+lib /DEF:libxxx.def
+```
+
+Then you can use this libxxx.lib file in C++ project
+
+```c++
+#pragma comment(lib, "libxxx.lib")
 ```
 
 ### Debian / Ubuntu Linux
